@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class barsManagement : MonoBehaviour
 {
-    public int barSpeed = 5;
-    public float deadZone = -20f;
-    // Start is called before the first frame update
+    public float pipeMove = 10.0f;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         
@@ -15,10 +14,11 @@ public class barsManagement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (Vector3.left * barSpeed) * Time.deltaTime;
-        if(transform.position.x < deadZone)
+        transform.position = transform.position + Vector3.left * pipeMove*Time.deltaTime;
+        if(transform.position.x<-12.27)
         {
             Destroy(gameObject);
-        }
-    }
+        }
+    }
+
 }

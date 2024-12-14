@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class middleBarScript : MonoBehaviour
 {
-    public logic logic;
+    public logic lg;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("logic").GetComponent<logic>();
+        lg = GameObject.FindGameObjectWithTag("logic").GetComponent<logic>();
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        logic.addScore(1);
+        lg.addscore();
     }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
 }

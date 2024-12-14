@@ -4,43 +4,38 @@ using UnityEngine;
 
 public class bird : MonoBehaviour
 {
-    public Rigidbody2D rb;
-    public int flapfactor = 5;
-    public logic logic;
-    public AudioSource flapsound;
-    private bool birdisAlive = true;
-    public AudioSource gameOver;
-
-    // Start is called before the first frame update
+    public AudioSource FlapSound;
+    public AudioSource MainSound;
+    public logic lg;
+    public Rigidbody2D MyRigid;
+    public float FlapSpeed = 10.0f;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        logic = GameObject.FindGameObjectWithTag("logic").GetComponent<logic>();
-        
+        lg = GameObject.FindGameObjectWithTag("logic").GetComponent<logic>();
+        MainSound.Play();
     }
-
+   public  void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag=="pipe" || collision.gameObject.tag=="Ground")
+        {
+            lg.gameOver();
+            Destroy(gameObject);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began))  && birdisAlive)
+        if (Input.GetKeyDown(KeyCode.Space)==true )
         {
-            rb.linearVelocity = Vector2.up * flapfactor;
-            flapsound.Play();
+            MyRigid.linearVelocity = Vector2.up * FlapSpeed;
+            FlapSound.Play();
         }
 
-        if(transform.position.y > 5.5f || transform.position.y < -5.5f)
+        if(transform.position.y>4.72)
         {
-            logic.overScreen();
-            birdisAlive = false;
-            gameOver.Play();    
-        }
-        
-    }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-
-        logic.overScreen();
-        birdisAlive = false;
-        gameOver.Play();
-
+            lg.gameOver();
+            Destroy(gameObject);
+        }
     }
 }

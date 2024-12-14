@@ -7,32 +7,35 @@ using UnityEngine.SceneManagement;
 
 public class logic : MonoBehaviour
 {
-    public Text txt;
-    public int playerScore = 0;
-    public GameObject gameOverScreen;
-    public Text gameoverScore;
-    public AudioSource gameMusic;
-
-    public void addScore(int score)
+    public AudioSource GameOverSound;
+    public GameObject panel;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public int Scoring = 0;
+    public Text Score;
+    public PipeSpawn ps;
+    void Start()
     {
-        playerScore += score;
-        txt.text = playerScore.ToString();
+        
     }
-
-    public void restartGame()
+    public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
+        SceneManager.LoadScene("Flappy");
     }
-    public void overScreen()
+    public void addscore()
     {
-        gameoverScore.text = txt.text;
-        gameOverScreen.SetActive(true);
-        gameMusic.Stop();
-
+        Scoring = Scoring + 1;
+        Score.text = Scoring.ToString();
     }
-    public void homeScreen()
+    public void gameOver()
     {
-        SceneManager.LoadScene("HomeScene");
+        panel.SetActive(true);
+        ps.enabled = false;
+        GameOverSound.Play();
     }
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
 }

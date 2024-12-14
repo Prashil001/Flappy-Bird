@@ -4,36 +4,30 @@ using UnityEngine;
 
 public class barSpawnerScript : MonoBehaviour
 {
-    public GameObject bars;
-    public float timer = 0;
-    public float spawnTime = 2f;
-    public float heightOffset = 5f;
-    private float lowerheight;
-    private float upperheight;
-    // Start is called before the first frame update
+    public GameObject Pipe;
+    public float timer = 0.0f;
+    public float setTimer = 2.0f;
+    public float higherValue = 4.97f;
+    public float lowerValue = -0.06f;
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        spawn();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timer < spawnTime)
+        if(timer<setTimer)
         {
-            timer += Time.deltaTime;
+            timer = timer + Time.deltaTime;
         }
         else
         {
-            spawn();
+
+        Instantiate(Pipe, new Vector3(transform.position.x,Random.Range(lowerValue,higherValue),transform.position.z), transform.rotation);
             timer = 0;
-        }
-        
-    }
-    void spawn()
-    {
-        lowerheight = transform.position.y - heightOffset;
-        upperheight = transform.position.y + heightOffset;
-        Instantiate(bars,new Vector3(transform.position.x,Random.Range(lowerheight,upperheight),transform.position.z), transform.rotation);
-    }
+        }
+    }
+
 }
